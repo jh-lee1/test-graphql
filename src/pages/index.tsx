@@ -9,6 +9,7 @@ import { GitObject, PullRequest, Repository } from '../../schema/__generated__/g
 import { apolloClient } from '../../utils/ApolloClient';
 import { GIT_PR_QUERY } from '../../utils/query/GetPR';
 import { RemoveMaybeAsList } from '../../utils/RemoveMaybe';
+import { PostTemplate } from '@/components/PostTemplate/PostTemplate';
 
 interface Props {
     data: {
@@ -32,11 +33,7 @@ export default function Home(props: Props) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={`${styles.main} `}>
-                {data.map((item) => (
-                    <PostItem key={item.id} title={item.title} createdAt={item.createdAt} comments={item.comments} />
-                ))}
-                {isEndPage && <div>페이지 끝 입니다.</div>}
-                <div ref={setTarget}>{loading ? 'loading...' : lastEdge}</div>
+                <PostTemplate data={data} loading={loading} lastEdge={lastEdge} isEndPage={isEndPage} setTarget={setTarget} />
             </main>
         </>
     );
